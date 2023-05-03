@@ -211,7 +211,7 @@ var game = (function () {
         Object.getPrototypeOf(PlayerShot.prototype).constructor.call(this, x, y, playerShotsBuffer, playerShotImage);
         this.isHittingEvil = function() {
             return ((!evil.dead && this.posX >= evil.posX && this.posX <= (evil.posX + evil.image.width) &&
-                this.posY >= evil.posY && this.posY <= (evil.posY + evil.image.height))&& ((!evil2.dead &&
+                this.posY >= evil.posY && this.posY <= (evil.posY + evil.image.height))|| ((!evil2.dead &&
                      this.posX >= evil2.posX && this.posX <= (evil2.posX + evil2.image.width) &&
                 this.posY >= evil2.posY && this.posY <= (evil2.posY + evil2.image.height))));
 
@@ -367,7 +367,7 @@ var game = (function () {
         return ( ( (evil.posY + evil.image.height) > player.posY && (player.posY + player.height) >= evil.posY ) &&
             ((player.posX >= evil.posX && player.posX <= (evil.posX + evil.image.width)) ||
                 (player.posX + player.width >= evil.posX && (player.posX + player.width) <= (evil.posX + evil.image.width))) && 
-                ( (evil2.posY + evil2.image.height) > player.posY && (player.posY + player.height) >= evil2.posY ) &&
+                ( (evil2.posY + evil2.image.height) > player.posY && (player.posY + player.height) >= evil2.posY ) ||
                 ((player.posX >= evil2.posX && player.posX <= (evil2.posX + evil2.image.width)) ||
                     (player.posX + player.width >= evil2.posX && (player.posX + player.width) <= (evil2.posX + evil2.image.width))));
     }
@@ -649,7 +649,7 @@ var game = (function () {
         init: init
     }
 
-    
+
     }   
 
 })();
