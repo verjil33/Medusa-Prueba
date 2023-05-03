@@ -23,8 +23,7 @@ var game = (function () {
         buffer,
         bufferctx,
         player,
-        evil,
-        evil2,
+        evil,        
         playerShot,
         bgMain,
         bgBoss,
@@ -211,9 +210,7 @@ var game = (function () {
         Object.getPrototypeOf(PlayerShot.prototype).constructor.call(this, x, y, playerShotsBuffer, playerShotImage);
         this.isHittingEvil = function() {
             return ((!evil.dead && this.posX >= evil.posX && this.posX <= (evil.posX + evil.image.width) &&
-                this.posY >= evil.posY && this.posY <= (evil.posY + evil.image.height))|| ((!evil2.dead &&
-                     this.posX >= evil2.posX && this.posX <= (evil2.posX + evil2.image.width) &&
-                this.posY >= evil2.posY && this.posY <= (evil2.posY + evil2.image.height))));
+                this.posY >= evil.posY && this.posY <= (evil.posY + evil.image.height)));
 
         };
     }
@@ -301,14 +298,6 @@ var game = (function () {
                     shoot();
                 }, getRandomNumber(3000));
             }
-            if (evil2.shots > 0 && !evil2.dead) {
-                var disparo = new EvilShot(evil2.posX + (evil2.image.width / 2) - 5 , evil2.posY + evil2.image.height);
-                disparo.add();
-                evil2.shots --;
-                setTimeout(function() {
-                    shoot();
-                }, getRandomNumber(3000));
-        }
         setTimeout(function() {
             shoot();
         }, 1000 + getRandomNumber(2500));
@@ -326,7 +315,7 @@ var game = (function () {
     }
 
     
-    Evil.prototype = Object.create(Enemy.prototype);Evil.prototype = Object.create(Enemy.prototype);        
+    Evil.prototype = Object.create(Enemy.prototype);      
     Evil.prototype.constructor = Evil;
 
     function FinalBoss () {
@@ -358,7 +347,6 @@ var game = (function () {
     function createNewEvil() {
         if (totalEvils != 1) {
             evil = new Evil(evilLife + evilCounter - 1, evilShots + evilCounter - 1);
-            evil2 = new Evil(evilLife + evilCounter - 1, evilShots + evilCounter - 1);
         } else {
             evil = new FinalBoss();
         }
@@ -367,10 +355,7 @@ var game = (function () {
     function isEvilHittingPlayer() {
         return ( ( (evil.posY + evil.image.height) > player.posY && (player.posY + player.height) >= evil.posY ) &&
             ((player.posX >= evil.posX && player.posX <= (evil.posX + evil.image.width)) ||
-                (player.posX + player.width >= evil.posX && (player.posX + player.width) <= (evil.posX + evil.image.width))) && 
-                ( (evil2.posY + evil2.image.height) > player.posY && (player.posY + player.height) >= evil2.posY ) ||
-                ((player.posX >= evil2.posX && player.posX <= (evil2.posX + evil2.image.width)) ||
-                    (player.posX + player.width >= evil2.posX && (player.posX + player.width) <= (evil2.posX + evil2.image.width))));
+                (player.posX + player.width >= evil.posX && (player.posX + player.width) <= (evil.posX + evil.image.width))));
     }
 
     function checkCollisions(shot) {
@@ -466,7 +451,6 @@ var game = (function () {
 
         bufferctx.drawImage(player, player.posX, player.posY);
         bufferctx.drawImage(evil.image, evil.posX, evil.posY);
-        bufferctx.drawImage(evil2.image, evil2.posX, evil2.posY);
 
         updateEvil();
 
@@ -534,12 +518,6 @@ var game = (function () {
             evil.update();
             if (evil.isOutOfScreen()) {
                 evil.kill();
-            }
-        }
-        if (!evil2.dead) {
-            evil2.update();
-            if (evil2.isOutOfScreen()) {
-                evil2.kill();
             }
         }
     }
