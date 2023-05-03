@@ -23,14 +23,14 @@ var game = (function () {
         buffer,
         bufferctx,
         player,
-        evil,        
+        evil,
         playerShot,
         bgMain,
         bgBoss,
         evilSpeed = 1,
-        totalEvils = 10,
+        totalEvils = 7,
         playerLife = 3,
-        shotSpeed = 10,
+        shotSpeed = 5,
         playerSpeed = 5,
         evilCounter = 0,
         youLoose = false,
@@ -209,9 +209,8 @@ var game = (function () {
     function PlayerShot (x, y) {
         Object.getPrototypeOf(PlayerShot.prototype).constructor.call(this, x, y, playerShotsBuffer, playerShotImage);
         this.isHittingEvil = function() {
-            return ((!evil.dead && this.posX >= evil.posX && this.posX <= (evil.posX + evil.image.width) &&
-                this.posY >= evil.posY && this.posY <= (evil.posY + evil.image.height)));
-
+            return (!evil.dead && this.posX >= evil.posX && this.posX <= (evil.posX + evil.image.width) &&
+                this.posY >= evil.posY && this.posY <= (evil.posY + evil.image.height));
         };
     }
 
@@ -298,6 +297,7 @@ var game = (function () {
                     shoot();
                 }, getRandomNumber(3000));
             }
+        }
         setTimeout(function() {
             shoot();
         }, 1000 + getRandomNumber(2500));
@@ -314,8 +314,7 @@ var game = (function () {
         this.pointsToKill = 5 + evilCounter;
     }
 
-    
-    Evil.prototype = Object.create(Enemy.prototype);      
+    Evil.prototype = Object.create(Enemy.prototype);
     Evil.prototype.constructor = Evil;
 
     function FinalBoss () {
@@ -365,12 +364,6 @@ var game = (function () {
             } else {
                 evil.kill();
                 player.score += evil.pointsToKill;
-            }
-            if (evil2.life > 1) {
-                evil2.life--;
-            } else {
-                evil2.kill();
-                player.score += evil2.pointsToKill;
             }
             shot.deleteShot(parseInt(shot.identifier));
             return false;
@@ -627,8 +620,4 @@ var game = (function () {
     return {
         init: init
     }
-
-
-    }   
-
 })();
