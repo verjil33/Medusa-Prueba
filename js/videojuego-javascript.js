@@ -28,9 +28,9 @@ var game = (function () {
         bgMain,
         bgBoss,
         evilSpeed = 1,
-        totalEvils = 7,
+        totalEvils = 10,
         playerLife = 3,
-        shotSpeed = 5,
+        shotSpeed = 10,
         playerSpeed = 5,
         evilCounter = 0,
         youLoose = false,
@@ -315,6 +315,7 @@ var game = (function () {
     }
 
     Evil.prototype = Object.create(Enemy.prototype);
+    Evil.prototype = Object.create(Enemy.prototype);    
     Evil.prototype.constructor = Evil;
 
     function FinalBoss () {
