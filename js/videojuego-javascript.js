@@ -325,7 +325,8 @@ var game = (function () {
         this.pointsToKill = 5 + evilCounter;
     }
 
-    Evil.prototype = Object.create(Enemy.prototype);        
+    
+    Evil.prototype = Object.create(Enemy.prototype);Evil.prototype = Object.create(Enemy.prototype);        
     Evil.prototype.constructor = Evil;
 
     function FinalBoss () {
